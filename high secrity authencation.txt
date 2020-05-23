@@ -1,0 +1,118 @@
+var crypto = require('crypto');
+var uuid = require('uuid');
+var express = require('express');
+var mysql = require('mysql');
+var bodyParser = require('body-parser');
+
+//Connect to mysql
+var con = mysql.createConnection({
+	host:'localhost',
+	user: 'root',
+	password: '',
+	database: 'seeyousoon' 
+});
+
+//PASSWORD UTILS
+var genRandomString = function(length){
+	return crypto.randomBytes(Math.ceil(length/2))
+	.toString('hex')   // convert to hexa format
+	.slice(0,length);  // return required no. of character
+};
+
+var sha512 = function(password,salt){
+	var hash = crypto.createHmac('sha512',salt); //use SHA512
+	hash.update(password); 
+	var value = hash.digest('hex');
+	return{
+		salt:salt,
+		passwordHash:value
+	};
+};
+
+function saltHashPassword(userPassword){
+	var salt = genRandomString(16); //Gen random string
+	var passwordData = sha512(userPassword,salt);
+	return passwordData;
+}
+
+function checkHashPassword(userPassword,salt){
+	var passwordData = sha512(userPassword,salt);
+	return passwordData;
+}
+
+var app = express();
+app.use(bodyParser.json());  //Accept json params
+app.use(bodyParser.urlencoded({extended: true}));  //Accept URL encoded params
+
+app.post('/register/',(req,res,next)=>{
+	var post_data = req.body;
+
+	var uid = uuid.v4();  // Get uuid v4 like '11dfdf-8hjhj-j889-kooioi'
+	var plaint_password = post_data.password; //get password from post params
+	var hash_data = saltHashPassword(plaint_password);
+	var password = hash_data.passwordHash;  //get hash value
+	var salt = hash_data.salt;  // get salt
+
+	var name = post_data.name;
+	var email = post_data.email;
+
+	con.query('SELECT * FROM user where email=?',[email],function(err,result,fields){
+		con.on('error',function(err){
+			console.log('[MySQL ERROR]',err);
+		});
+		if (result && result.length)
+			res.json('User already exists!');
+		else
+		{
+			con.query('INSERT INTO `user`(`unique_id`, `name`, `email`, `encrypted_password`, `salt`, `created_at`, `updated_at`) '+
+				'VALUES (?,?,?,?,?,NOW(),NOW())',[uid,name,email,password,salt],function(err,result,fields){
+				con.on('error',function(err){
+					console.log('[MySQL ERROR]',err);
+					res.json('Registration error: ', err);
+				});
+				res.json('Registration successful');
+			})
+		}
+	});	
+})
+
+app.post('/login/',(req,res,next)=>{
+	var post_data = req.body;
+
+	//Extract email and password from request
+	var user_password = post_data.password;
+	var email = post_data.email;
+
+	con.query('SELECT * FROM user where email=?',[email],function(err,result,fields){
+		con.on('error',function(err){
+			console.log('[MySQL ERROR]',err);
+		});
+		if (result && result.length)
+		{
+			var salt =  result[0].salt;   // Get salt of resultif acc exists
+			var encrypted_password = result[0].encrypted_password;
+			var hashed_password = checkHashPassword(user_password,salt).passwordHash
+			if (encrypted_password == hashed_password)
+				res.end(JSON.stringify(result[0]));  //if password is true, return all info
+			else
+				res.end(JSON.stringify('Wrong Password'));
+		}
+		else
+		{
+			res.json('User does not exists!');
+		}
+	});	
+ 
+})
+
+// app.get("/",(req,res,next)=>{
+// 	console.log('password: 123456');
+// 	var encrypt = saltHashPassword("123456");
+// 	console.log('Encrypted: '+encrypt.passwordHash);
+// 	console.log('Salt: '+encrypt.salt );
+// })
+
+//Start server
+app.listen(3000,()=>{
+	console.log('Akshay Restful running on port 3000');
+})

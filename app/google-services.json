@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1087101221691",
+    "firebase_url": "https://seeyousoon-7be4f.firebaseio.com",
+    "project_id": "seeyousoon-7be4f",
+    "storage_bucket": "seeyousoon-7be4f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1087101221691:android:0f94452ca95b37c819151e",
+        "android_client_info": {
+          "package_name": "com.example.seeyousoon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1087101221691-nh1jb3kd9dh5nv6kcf4nucsfqm5642gu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfp5Iy_kyAKnLfEE0DjYwhJS9Q-y3dQGc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1087101221691-nh1jb3kd9dh5nv6kcf4nucsfqm5642gu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
