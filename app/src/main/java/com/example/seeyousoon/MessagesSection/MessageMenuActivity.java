@@ -1,5 +1,6 @@
-package com.example.seeyousoon;
+package com.example.seeyousoon.MessagesSection;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -8,15 +9,13 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 
-import com.example.seeyousoon.fragments.AddFragment;
-import com.example.seeyousoon.fragments.HomeFragment;
-import com.example.seeyousoon.fragments.ProfileFragment;
+import com.example.seeyousoon.R;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MessageMenuActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
     private TabLayout tabLayout;
@@ -24,32 +23,25 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_message_menu);
 
-        viewPager = findViewById(R.id.viewPager);
-        tabLayout = findViewById(R.id.tabLayout);
+        viewPager = findViewById(R.id.viewPager1);
+        tabLayout = findViewById(R.id.tabLayout1);
 
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
-        setupTabIcons();
     }
-
-    private void setupTabIcons() {
-        tabLayout.getTabAt(0).setIcon(R.drawable.home_icon);
-        tabLayout.getTabAt(1).setIcon(R.drawable.add_icon);
-        tabLayout.getTabAt(2).setIcon(R.drawable.profile_icon);
-    }
-
 
     private void setupViewPager(ViewPager viewPager){
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(new HomeFragment());
-        adapter.addFrag(new AddFragment());
-        adapter.addFrag(new ProfileFragment());
+        adapter.addFrag(new BuddiesFragment(),"Buddies");
+        adapter.addFrag(new ContactsFragment(),"Contacts");
         viewPager.setAdapter(adapter);
     }
+
     static class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitle = new ArrayList<>();
 
         public ViewPagerAdapter(FragmentManager manager) {
             super(manager);
@@ -65,9 +57,15 @@ public class MainActivity extends AppCompatActivity {
             return mFragmentList.size();
         }
 
-        void addFrag(Fragment fragment) {
+        void addFrag(Fragment fragment, String title) {
             mFragmentList.add(fragment);
+            mFragmentTitle.add(title);
         }
 
+        @Nullable
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitle.get(position);
+        }
     }
 }

@@ -6,6 +6,12 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorSecondary">@color/lightDark</item>
+        <item name="android:colorEdgeEffect">@color/mediumDark</item>
+    </style>
+    <style name="TabLayoutTextStyle">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">#FFFFFF</item>
     </style>
 
 </resources>

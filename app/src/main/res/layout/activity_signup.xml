@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".Signup"
     android:background="@drawable/bk_auth">
+
+    <ProgressBar
+        android:id="@+id/progressBar1"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="invisible"/>
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="100dp"
@@ -37,7 +47,7 @@
         android:gravity="center_horizontal"
         android:text="Sign Up"
         android:textColor="#ffffff"
-        android:textSize="28sp"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline" />
@@ -49,7 +59,7 @@
         android:textSize="18sp"
         android:fontFamily="@font/asap"
         android:textColor="#ffffff"
-        android:textColorHint="#8C8181"
+        android:textColorHint="#E1E0E0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView">
@@ -60,9 +70,10 @@
             android:drawableStart="@drawable/person_icon"
             android:hint="User Name"
             android:textSize="18sp"
+            android:fontFamily="@font/asap"
             android:textColor="#ffffff"
-            android:textColorHint="#8C8181"
-            android:backgroundTint="#ff9800"
+            android:textColorHint="#E1E0E0"
+            android:backgroundTint="#14FFEC"
             android:inputType="textPersonName"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -74,7 +85,7 @@
         android:textSize="18sp"
         android:fontFamily="@font/asap"
         android:textColor="#ffffff"
-        android:textColorHint="#8C8181"
+        android:textColorHint="#E1E0E0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/username">
@@ -86,8 +97,9 @@
             android:hint="E-mail"
             android:textSize="18sp"
             android:textColor="#ffffff"
-            android:textColorHint="#8C8181"
-            android:backgroundTint="#ff9800"
+            android:textColorHint="#E1E0E0"
+            android:fontFamily="@font/asap"
+            android:backgroundTint="#14FFEC"
             android:inputType="textEmailAddress"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -101,7 +113,7 @@
         app:passwordToggleEnabled="true"
         app:passwordToggleTint="#ffffff"
         android:textColor="#ffffff"
-        android:textColorHint="#8C8181"
+        android:textColorHint="#E1E0E0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email">
@@ -112,9 +124,10 @@
             android:drawableStart="@drawable/password_icon"
             android:hint="Password"
             android:textSize="18sp"
+            android:fontFamily="@font/asap"
             android:textColor="#ffffff"
-            android:textColorHint="#8C8181"
-            android:backgroundTint="#ff9800"
+            android:textColorHint="#E1E0E0"
+            android:backgroundTint="#14FFEC"
             android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
@@ -127,7 +140,7 @@
         app:passwordToggleEnabled="true"
         app:passwordToggleTint="#ffffff"
         android:textColor="#ffffff"
-        android:textColorHint="#8C8181"
+        android:textColorHint="#E1E0E0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password">
@@ -138,9 +151,10 @@
             android:drawableStart="@drawable/password_icon"
             android:hint="Confirm Password"
             android:textSize="18sp"
+            android:fontFamily="@font/asap"
             android:textColor="#ffffff"
-            android:textColorHint="#8C8181"
-            android:backgroundTint="#ff9800"
+            android:textColorHint="#E1E0E0"
+            android:backgroundTint="#14FFEC"
             android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -152,7 +166,10 @@
         android:layout_marginEnd="20dp"
         android:background="@drawable/round_orange"
         android:fontFamily="@font/asap"
-        android:text="Register"
+        android:text="SIGN UP"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/confirmPassword" />
 
@@ -163,7 +180,7 @@
         android:fontFamily="@font/asap"
         android:gravity="center_horizontal"
         android:text="Already registered? Login here "
-        android:textColor="#ffffff"
+        android:textColor="#000000"
         android:textSize="16sp"
         android:textStyle="bold"
         android:layout_marginBottom="15dp"
