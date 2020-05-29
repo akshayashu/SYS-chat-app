@@ -9,39 +9,30 @@
     android:weightSum="10"
     android:background="@color/colorPrimaryDark"
     tools:context=".MessagesSection.MainChatActivity">
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/lightDark"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar">
-        <LinearLayout
-            android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:background="@color/lightDark">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_margin="2dp"
+            android:src="@drawable/profile"
+            android:id="@+id/profilePic"
+            android:layout_gravity="center"/>
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:src="@drawable/profile"
-                android:id="@+id/profilePic"/>
-            <TextView
-                android:id="@+id/username"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="User Name"
-                android:layout_marginStart="15dp"
-                android:textColor="#14FFEC"
-                android:fontFamily="@font/asap"
-                android:textSize="22sp"
-                android:layout_gravity="center"/>
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"/>
-        </LinearLayout>
-    </androidx.appcompat.widget.Toolbar>
+            android:text="User Name"
+            android:layout_margin="3dp"
+            android:textColor="#14FFEC"
+            android:fontFamily="@font/asap"
+            android:textSize="16sp"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -61,7 +52,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_margin="5dp"
-        android:background="@drawable/round_grey"
         android:weightSum="10">
         <EditText
             android:id="@+id/writeMessage"
@@ -70,16 +60,17 @@
             android:textSize="20sp"
             android:padding="10dp"
             android:hint="Write your message..."
+            android:background="@drawable/round_grey"
             android:textColor="#FFFFFF"
-            android:backgroundTint="@color/lightDark"
             android:textColorHint="#C8C0C0"
             android:layout_weight="10"/>
         <Button
             android:id="@+id/sendMessage"
-            android:layout_width="40dp"
-            android:layout_height="30dp"
+            android:layout_width="30dp"
+            android:layout_height="27dp"
             android:layout_gravity="center"
             android:layout_marginEnd="7dp"
+            android:layout_marginStart="10dp"
             android:background="@drawable/send_icon"/>
     </LinearLayout>
 

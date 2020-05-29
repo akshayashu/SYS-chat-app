@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 
 import com.example.seeyousoon.fragments.AddFragment;
 import com.example.seeyousoon.fragments.HomeFragment;
@@ -32,6 +33,16 @@ public class MainActivity extends AppCompatActivity {
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            viewPager.setCurrentItem(0, true);
+            return true;
+        } else {
+            return super.onKeyDown(keyCode, event);
+        }
     }
 
     private void setupTabIcons() {

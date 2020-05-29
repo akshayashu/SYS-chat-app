@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="48dp"
-    android:height="48dp"
+    android:width="32dp"
+    android:height="32dp"
     android:viewportWidth="48"
     android:viewportHeight="48">
 
     <path
-        android:fillColor="#3F51B5"
+        android:fillColor="@color/colorAccent"
         android:pathData="M42,29H20.8c-0.5,0-1-0.2-1.4-0.6l-3.7-3.7c-0.4-0.4-0.4-1,0-1.4l3.7-3.7c0.4-0.4,0.9-0.6,1.4-0.6H42 c0.6,0,1,0.4,1,1v8C43,28.6,42.6,29,42,29z" />
     <path
-        android:fillColor="#CFD8DC"
+        android:fillColor="#FFFFFF"
         android:pathData="M 9 6 H 11 V 42 H 9 V 6 Z" />
     <path
-        android:fillColor="#90A4AE"
+        android:fillColor="#FF5722"
         android:pathData="M 10 7 C 11.6568542495 7 13 8.34314575051 13 10 C 13 11.6568542495 11.6568542495 13 10 13 C 8.34314575051 13 7 11.6568542495 7 10 C 7 8.34314575051 8.34314575051 7 10 7 Z" />
     <path
-        android:fillColor="#90A4AE"
+        android:fillColor="#FFC107"
         android:pathData="M 10 21 C 11.6568542495 21 13 22.3431457505 13 24 C 13 25.6568542495 11.6568542495 27 10 27 C 8.34314575051 27 7 25.6568542495 7 24 C 7 22.3431457505 8.34314575051 21 10 21 Z" />
     <path
-        android:fillColor="#90A4AE"
+        android:fillColor="#3F51B5"
         android:pathData="M 10 35 C 11.6568542495 35 13 36.3431457505 13 38 C 13 39.6568542495 11.6568542495 41 10 41 C 8.34314575051 41 7 39.6568542495 7 38 C 7 36.3431457505 8.34314575051 35 10 35 Z" />
     <path
-        android:fillColor="#448AFF"
+        android:fillColor="@color/colorPrimary"
         android:pathData="M34,43H20.8c-0.5,0-1-0.2-1.4-0.6l-3.7-3.7c-0.4-0.4-0.4-1,0-1.4l3.7-3.7c0.4-0.4,0.9-0.6,1.4-0.6H34 c0.6,0,1,0.4,1,1v8C35,42.6,34.6,43,34,43z" />
     <path
-        android:fillColor="#00BCD4"
+        android:fillColor="@color/colorPrimary"
         android:pathData="M35,15H20.8c-0.5,0-1-0.2-1.4-0.6l-3.7-3.7c-0.4-0.4-0.4-1,0-1.4l3.7-3.7C19.8,5.2,20.3,5,20.8,5H35 c0.6,0,1,0.4,1,1v8C36,14.6,35.6,15,35,15z" />
 </vector>

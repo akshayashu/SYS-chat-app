@@ -161,6 +161,7 @@ public class Signup extends AppCompatActivity {
         userData.setName(uName.getText().toString());
         userData.setUID(mAuth.getCurrentUser().getUid());
         userData.setPassword(uPassword.getText().toString());
+        userData.setLowercaseName(uName.getText().toString().toLowerCase());
 
         mRef.child(mAuth.getCurrentUser().getUid()).setValue(userData).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

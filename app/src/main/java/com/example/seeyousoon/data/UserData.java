@@ -1,10 +1,26 @@
 package com.example.seeyousoon.data;
 
 public class UserData {
-    private String UID,Name,Email,Password,imageUrl;
+    private String UID,Name,Email,Password,imageUrl, status, lowercasename;
 
     public String getImageUrl() {
         return imageUrl;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public String getLowercaseName() {
+        return lowercasename;
+    }
+
+    public void setLowercaseName(String lowercaseName) {
+        this.lowercasename = lowercaseName;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public void setImageUrl(String imageUrl) {

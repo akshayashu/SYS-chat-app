@@ -2,6 +2,7 @@ package com.example.seeyousoon.MessagesSection;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -46,6 +47,8 @@ public class MainChatActivity extends AppCompatActivity {
     List<ChatData> mChat;
 
     Intent intent;
+
+    ValueEventListener seenListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,16 +100,76 @@ public class MainChatActivity extends AppCompatActivity {
 
             }
         });
+        seenMessage(userId);
     }
 
-    private void sendMessage(String sender, String receiver, String message){
+    private void seenMessage(final String userId){
+        reference = FirebaseDatabase.getInstance().getReference("Chat");
+        seenListener = reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    ChatData chatData = snapshot.getValue(ChatData.class);
+                    if(chatData.getReceiver().equals(firebaseUser.getUid()) && chatData.getSender().equals(userId)){
+                        HashMap<String, Object> hashMap = new HashMap<>();
+                        hashMap.put("isseen",true);
+                        snapshot.getRef().updateChildren(hashMap);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void sendMessage(String sender, final String receiver, String message){
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         HashMap<String,Object> hashMap = new HashMap<>();
         hashMap.put("sender",sender);
         hashMap.put("receiver", receiver);
         hashMap.put("message", message);
+        hashMap.put("isseen",false);
 
         reference.child("Chat").push().setValue(hashMap);
+
+        final DatabaseReference chatReference = FirebaseDatabase.getInstance().getReference("Chatlist")
+                .child(firebaseUser.getUid())
+                .child(receiver);
+
+        final DatabaseReference chatReference2 = FirebaseDatabase.getInstance().getReference("Chatlist")
+                .child(receiver)
+                .child(firebaseUser.getUid());
+
+        chatReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.exists()){
+                    chatReference.child("id").setValue(receiver);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        chatReference2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.exists()){
+                    chatReference2.child("id").setValue(firebaseUser.getUid());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     private void readMessage(final String myId, final String userId,final String username){
@@ -114,29 +177,49 @@ public class MainChatActivity extends AppCompatActivity {
 
         reference = FirebaseDatabase.getInstance().getReference("Chat");
 
-        try {
-            reference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    mChat.clear();
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        ChatData chatData = snapshot.getValue(ChatData.class);
-                        if (chatData.getReceiver().equals(myId) && chatData.getSender().equals(userId) ||
-                                chatData.getReceiver().equals(userId) && chatData.getSender().equals(myId)) {
-                            mChat.add(chatData);
-                        }
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mChat.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    ChatData chatData = snapshot.getValue(ChatData.class);
+                    if (chatData.getReceiver().equals(myId) && chatData.getSender().equals(userId) ||
+                            chatData.getReceiver().equals(userId) && chatData.getSender().equals(myId)) {
+                        mChat.add(chatData);
                     }
-                    messageAdapter = new MessageAdapter(MainChatActivity.this, mChat,username);
-                    recyclerView.setAdapter(messageAdapter);
                 }
+                messageAdapter = new MessageAdapter(MainChatActivity.this, mChat,username);
+                recyclerView.setAdapter(messageAdapter);
+            }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                }
-            });
-        }catch (Exception e){
-            Toast.makeText(this, ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-        }
+            }
+        });
+    }
+
+    private void status(String status){
+
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        reference = FirebaseDatabase.getInstance().getReference("User Data").child(firebaseUser.getUid());
+
+        HashMap<String, Object> hashMap =  new HashMap<>();
+        hashMap.put("status", status);
+
+        reference.updateChildren(hashMap);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        status("Online");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        reference.removeEventListener(seenListener);
+        status("Offline");
     }
 }

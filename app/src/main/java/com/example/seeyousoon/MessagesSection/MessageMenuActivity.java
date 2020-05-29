@@ -11,14 +11,22 @@ import android.os.Bundle;
 
 import com.example.seeyousoon.R;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class MessageMenuActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
     private TabLayout tabLayout;
+
+    DatabaseReference reference;
+    FirebaseUser firebaseUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,5 +75,28 @@ public class MessageMenuActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             return mFragmentTitle.get(position);
         }
+    }
+
+    private void status(String status){
+
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        reference = FirebaseDatabase.getInstance().getReference("User Data").child(firebaseUser.getUid());
+
+        HashMap<String, Object> hashMap =  new HashMap<>();
+        hashMap.put("status", status);
+
+        reference.updateChildren(hashMap);
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        status("Online");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        status("Offline");
     }
 }

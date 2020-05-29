@@ -19,11 +19,8 @@ import android.widget.TextView;
 import com.example.seeyousoon.Login;
 import com.example.seeyousoon.R;
 import com.example.seeyousoon.SelectedPostGridview;
-import com.example.seeyousoon.data.UserChatMenu;
 import com.example.seeyousoon.data.UserData;
-import com.example.seeyousoon.extraActivities.PostsGridView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import static android.content.Context.MODE_PRIVATE;
 

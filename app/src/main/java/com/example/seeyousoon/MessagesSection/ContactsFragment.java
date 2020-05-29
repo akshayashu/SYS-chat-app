@@ -7,12 +7,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.example.seeyousoon.R;
-import com.example.seeyousoon.data.UserChatMenu;
 import com.example.seeyousoon.data.UserData;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -20,6 +22,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -34,6 +37,8 @@ public class ContactsFragment extends Fragment {
     private Chat_menu_adapter chat_menu_adapter;
     private List<UserData> mUser;
 
+    EditText searchUser;
+
     public ContactsFragment() {
         // Required empty public constructor
     }
@@ -45,14 +50,63 @@ public class ContactsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_contacts, container, false);
 
         recyclerView = view.findViewById(R.id.recyclerView);
+        searchUser = view.findViewById(R.id.searchUser);
+
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        searchUser.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                search(s.toString().toLowerCase());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         mUser = new ArrayList<>();
 
         readUser();
 
         return view;
+    }
+
+    private void search(String s) {
+
+        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        Query query = FirebaseDatabase.getInstance().getReference("User Data").orderByChild("lowercasename")
+                .startAt(s)
+                .endAt(s+"\uf0ff");
+
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mUser.clear();
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    UserData userData = snapshot.getValue(UserData.class);
+                    assert  userData != null;
+                    assert  firebaseUser != null;
+                    if (!userData.getUID().equalsIgnoreCase(firebaseUser.getUid())){
+                        mUser.add(userData);
+                    }
+                }
+                chat_menu_adapter = new Chat_menu_adapter(getContext(),mUser,false);
+                recyclerView.setAdapter(chat_menu_adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void readUser() {
@@ -63,18 +117,20 @@ public class ContactsFragment extends Fragment {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                mUser.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    UserData userData = snapshot.getValue(UserData.class);
+                if (searchUser.getText().toString().equals("")) {
+                    mUser.clear();
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        UserData userData = snapshot.getValue(UserData.class);
 
-                    assert userData != null;
-                    if(!userData.getUID().equals(firebaseUser.getUid())){
-                        mUser.add(userData);
+                        assert userData != null;
+                        if (!userData.getUID().equals(firebaseUser.getUid())) {
+                            mUser.add(userData);
+                        }
                     }
-                }
 
-                chat_menu_adapter = new Chat_menu_adapter(getContext(),mUser);
-                recyclerView.setAdapter(chat_menu_adapter);
+                    chat_menu_adapter = new Chat_menu_adapter(getContext(), mUser, false);
+                    recyclerView.setAdapter(chat_menu_adapter);
+                }
 
             }
 

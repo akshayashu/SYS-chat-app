@@ -8,6 +8,18 @@
     android:orientation="vertical"
     android:background="@color/colorPrimaryDark">
 
+    <EditText
+        android:id="@+id/searchUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_margin="5dp"
+        android:textSize="18sp"
+        android:hint="Search..."
+        android:textColorHint="#C3BBBB"
+        android:textColor="#fff"
+        android:background="@drawable/round_grey"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
