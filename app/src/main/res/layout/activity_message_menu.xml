@@ -44,6 +44,28 @@
         android:background="@color/lightDark"
         app:tabMode="fixed"
         app:tabTextAppearance="@style/TabLayoutTextStyle"/>
+    <com.agrawalsuneet.dotsloader.loaders.BounceLoader
+        android:id="@+id/bounce"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        app:bounce_animDuration="1200"
+        android:visibility="visible"
+        app:bounce_ballColor="@color/colorPrimary"
+        app:bounce_ballRadius="18dp"
+        app:bounce_shadowColor="@color/colorAccent"
+        app:bounce_showShadow="true" />
+    <TextView
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Loading Chats..."
+        android:textSize="22sp"
+        android:visibility="visible"
+        android:fontFamily="@font/asap"
+        android:textColor="@color/colorAccent"
+        android:layout_gravity="center"/>
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager1"
         android:layout_width="match_parent"

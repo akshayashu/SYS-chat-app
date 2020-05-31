@@ -2,14 +2,15 @@ package com.example.seeyousoon.data;
 
 public class ChatData {
 
-    private String sender, receiver, message;
+    private String sender, receiver, message, time;
     private boolean isseen;
 
-    public ChatData(String sender, String receiver, String message, boolean isseen) {
+    public ChatData(String sender, String receiver, String message, boolean isseen, String time) {
         this.sender = sender;
         this.receiver = receiver;
         this.message = message;
         this.isseen = isseen;
+        this.time = time;
     }
 
     public ChatData() {
@@ -45,5 +46,13 @@ public class ChatData {
 
     public void setIsseen(boolean isseen) {
         this.isseen = isseen;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }

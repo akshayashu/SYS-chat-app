@@ -1,13 +1,24 @@
 package com.example.seeyousoon.data;
 
-public class Chatlist {
+import java.util.Date;
+
+public class Chatlist{
     public String id;
+    long timestamp;
 
     public Chatlist(String id) {
         this.id = id;
     }
 
     public Chatlist() {
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 
     public String getId() {
@@ -17,4 +28,5 @@ public class Chatlist {
     public void setId(String id) {
         this.id = id;
     }
+
 }

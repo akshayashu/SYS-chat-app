@@ -19,7 +19,17 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Toast;
 
+import com.example.seeyousoon.MessagesSection.BuddiesFragment;
+import com.example.seeyousoon.MessagesSection.ContactsFragment;
+import com.example.seeyousoon.MessagesSection.MessageMenuActivity;
+import com.example.seeyousoon.data.ChatData;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 import java.util.Locale;
@@ -85,6 +95,8 @@ public class FirstActivity extends AppCompatActivity {
         }
 
     }
+
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
     {

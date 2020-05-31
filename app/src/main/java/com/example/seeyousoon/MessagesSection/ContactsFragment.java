@@ -82,7 +82,7 @@ public class ContactsFragment extends Fragment {
     private void search(String s) {
 
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        Query query = FirebaseDatabase.getInstance().getReference("User Data").orderByChild("lowercasename")
+        Query query = FirebaseDatabase.getInstance().getReference("User Data").orderByChild("lowercaseName")
                 .startAt(s)
                 .endAt(s+"\uf0ff");
 

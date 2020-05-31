@@ -1,5 +1,6 @@
 package com.example.seeyousoon.MessagesSection;
 
+import android.nfc.Tag;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -7,9 +8,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.seeyousoon.R;
 import com.example.seeyousoon.data.ChatData;
@@ -21,9 +24,15 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -38,7 +47,7 @@ public class BuddiesFragment extends Fragment {
     FirebaseUser firebaseUser;
     DatabaseReference reference;
 
-    private List<Chatlist> usersList;
+    private List<String> usersList;
 
     public BuddiesFragment() {
         // Required empty public constructor
@@ -59,23 +68,26 @@ public class BuddiesFragment extends Fragment {
         usersList = new ArrayList<>();
 
         reference = FirebaseDatabase.getInstance().getReference("Chatlist").child(firebaseUser.getUid());
-        reference.addValueEventListener(new ValueEventListener() {
+        Query query = reference.orderByChild("timestamp");
+        ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 usersList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Log.d("datasnapshot", snapshot.getKey()+": "+snapshot.getValue());
                     Chatlist chatlist = snapshot.getValue(Chatlist.class);
-                    usersList.add(chatlist);
+                    usersList.add(chatlist.getId());
+                    ChatList();
                 }
-                ChatList();
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });
-
+        };
+        query.addValueEventListener(valueEventListener);
         return view;
     }
 
@@ -86,10 +98,10 @@ public class BuddiesFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mUser.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    UserData userData = snapshot.getValue(UserData.class);
-                    for(Chatlist chatlist : usersList){
-                        if(userData.getUID().equals(chatlist.getId())){
+                for(String chatlist : usersList){
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                        UserData userData = snapshot.getValue(UserData.class);
+                        if(userData.getUID().equals(chatlist)){
                             mUser.add(userData);
                         }
                     }
@@ -105,6 +117,5 @@ public class BuddiesFragment extends Fragment {
         });
 
     }
-
 
 }

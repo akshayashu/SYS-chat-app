@@ -49,5 +49,7 @@ dependencies {
 
     api 'com.google.android.material:material:1.2.0-alpha06'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    implementation 'com.agrawalsuneet.androidlibs:dotsloader:1.4'
 }
 

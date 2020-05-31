@@ -33,79 +33,90 @@
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:elevation="10dp"
-            android:layout_marginStart="5dp"
-            android:layout_gravity="center"
-            android:src="@drawable/profile"
-            app:civ_border_color="#FFFFFF"
-            app:civ_border_width="1dp" />
-        <TextView
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="User Name"
-            android:fontFamily="@font/asap"
-            android:textSize="14sp"
-            android:textColor="#FFFFFF"
-            android:layout_gravity="center"
-            android:layout_marginStart="10dp"/>
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/option_button"/>
-    </LinearLayout>
-    <ImageView
-        android:id="@+id/postImage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="fitXY"
-        android:layout_marginTop="10dp"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:text="123"
-            android:textSize="14sp"
-            android:textColor="#FFFFFF"
-            android:fontFamily="@font/asap"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:drawableTop="@drawable/blank_heart_icon"
-            android:layout_margin="10dp"/>
-        <TextView
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="12"
-            android:textSize="14sp"
-            android:textColor="#FFFFFF"
-            android:fontFamily="@font/asap"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:drawableTop="@drawable/comments_icon"/>
+            android:orientation="vertical">
 
-    </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:fontFamily="@font/asap"
-        android:textColor="#FFFFFF"
-        android:layout_marginStart="10dp"
-        android:text="Add caption here!"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:elevation="10dp"
+                android:layout_marginStart="5dp"
+                android:layout_gravity="center"
+                android:src="@drawable/profile"
+                app:civ_border_color="#FFFFFF"
+                app:civ_border_width="1dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="User Name"
+                android:fontFamily="@font/asap"
+                android:textSize="14sp"
+                android:textColor="#FFFFFF"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/option_button"/>
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/postImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:layout_marginTop="10dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:text="123"
+                android:textSize="14sp"
+                android:textColor="#FFFFFF"
+                android:fontFamily="@font/asap"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:drawableTop="@drawable/blank_heart_icon"
+                android:layout_margin="10dp"/>
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="12"
+                android:textSize="14sp"
+                android:textColor="#FFFFFF"
+                android:fontFamily="@font/asap"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:drawableTop="@drawable/comments_icon"/>
+
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:fontFamily="@font/asap"
+            android:textColor="#FFFFFF"
+            android:layout_marginStart="10dp"
+            android:text="Add caption here!"/>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

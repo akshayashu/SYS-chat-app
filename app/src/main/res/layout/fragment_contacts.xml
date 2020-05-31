@@ -16,6 +16,7 @@
         android:layout_margin="5dp"
         android:textSize="18sp"
         android:hint="Search..."
+        android:maxLines="1"
         android:textColorHint="#C3BBBB"
         android:textColor="#fff"
         android:background="@drawable/round_grey"/>

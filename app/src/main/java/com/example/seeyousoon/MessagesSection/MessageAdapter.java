@@ -60,6 +60,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             holder.personName.setText(username);
         }
 
+        holder.txt_time.setText(chatData.getTime());
+
         if (position == mChat.size()-1){
             if (chatData.isIsseen()){
                 holder.txt_seen.setText("Seen");
@@ -79,7 +81,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView showMessage, personName, txt_seen;
+        public TextView showMessage, personName, txt_seen, txt_time;
 
         public ViewHolder(View itemView){
             super(itemView);
@@ -87,6 +89,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             personName = itemView.findViewById(R.id.personName);
             showMessage = itemView.findViewById(R.id.textMessage);
             txt_seen = itemView.findViewById(R.id.text_seen);
+            txt_time = itemView.findViewById(R.id.txtTime);
         }
     }
 

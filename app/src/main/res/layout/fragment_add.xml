@@ -4,23 +4,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.AddFragment"
-    android:background="@color/colorPrimaryDark">
-
-    <androidx.appcompat.widget.Toolbar
+    android:background="@color/colorPrimaryDark"
+    android:orientation="vertical">
+    <EditText
+        android:id="@+id/searchUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
-        android:background="@color/lightDark">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <androidx.appcompat.widget.SearchView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-
-    </androidx.appcompat.widget.Toolbar>
-
+        android:hint=" Discover People.."
+        android:textColorHint="#C8C0C0"
+        android:maxLines="1"
+        android:textSize="18sp"
+        android:textColor="#ffffff"
+        android:layout_margin="5dp"
+        android:fontFamily="@font/asap"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:drawableStart="@drawable/search_icon"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#ffffff"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </LinearLayout>
